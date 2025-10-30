@@ -1,21 +1,17 @@
-﻿# CMakeList.txt : projet CMake pour Gestalt, incluez la source et définissez
-# la logique spécifique au projet ici.
-#
-cmake_minimum_required (VERSION 3.8)
+﻿cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 
-# Activez Rechargement à chaud pour les compilateurs MSVC si cela est pris en charge.
 if (POLICY CMP0141)
   cmake_policy(SET CMP0141 NEW)
   set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
 endif()
 
-project ("Gestalt")
+project(Gestalt)
 
-# Ajoutez une source à l'exécutable de ce projet.
-add_executable (Gestalt "Gestalt.cpp" "Gestalt.h")
+option(BUILD_EXAMPLES "Build example programs" ON)
 
-if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET Gestalt PROPERTY CXX_STANDARD 20)
+# Source code of Gestalt library
+add_subdirectory(Source)
+
+if (BUILD_EXAMPLES)
+  add_subdirectory(Examples)
 endif()
-
-# TODO: Ajoutez des tests et installez des cibles si nécessaire.
