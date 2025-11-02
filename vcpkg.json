@@ -2,6 +2,7 @@
   "name": "gestalt",
   "version": "0.0.1",
   "dependencies": [
-    "tidy-html5"
+    "tidy-html5",
+    "fmt"
   ]
 }

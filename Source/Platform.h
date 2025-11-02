@@ -1,8 +1,10 @@
-#pragma once
+#ifndef GESTALT_PLATFORM_H
+#define GESTALT_PLATFORM_H
 
 /*
-	platform.hpp - useful macros for detecting various operating systems
+	platform.h - useful macros for detecting various operating systems
 	provides macros PLATFORM(NAME), GESTALT_API
+	notice: this header is compatible with C
 */
 
 #if defined(_WIN32) || defined(_WIN64)
@@ -17,12 +19,12 @@
 #define GESTALT_IS_PLATFORM_DARWIN 1
 #include <TargetConditionals.h>
 #if TARGET_IPHONE_SIMULATOR == 1
-#define GESTALT_IS_PLATFORM_IOS
-#define GESTALT_IS_PLATFORM_IOS_XCODE_SIMULATOR
+#define GESTALT_IS_PLATFORM_IOS 1
+#define GESTALT_IS_PLATFORM_IOS_XCODE_SIMULATOR 1
 #elif TARGET_OS_IPHONE == 1
-#define GESTALT_IS_PLATFORM_IOS
+#define GESTALT_IS_PLATFORM_IOS 1
 #elif TARGET_OS_MAC == 1
-#define GESTALT_IS_PLATFORM_MAC
+#define GESTALT_IS_PLATFORM_MAC 1
 #endif
 #endif // defined(__APPLE__) && defined(__MACH__)
 
@@ -79,3 +81,5 @@
 #endif // PLATFORM(WIN)
 
 #define GESTALT_C_API GESTALT_EXTERN GESTALT_API
+
+#endif // GESTALT_PLATFORM_H

@@ -1,14 +1,28 @@
 #include "Gestalt.hpp"
+#include "HTMLTidy.hpp"
+
+#include <fmt/core.h>
+
 
 int main(int argc, char **argv) {
-	GestaltC();
-	Gestalt::NamespaceTest();
+	auto tidy = Gestalt::HTMLTidy::New();
+
+	auto test = "<title>Foo</title><p>Foo!";
+
+	tidy->SetBool(TidyQuiet, true);
+	tidy->SetBool(TidyMark, false);
+	tidy->ParseString(test);
+	tidy->CleanAndRepair();
+	tidy->SaveToOutputBuffer();
+
+	fmt::println("OUTPUT{}", tidy->GetOutputBuffer());
+
 #if PLATFORM(WIN)
-	std::cout << "Windows platform" << std::endl;
+	fmt::println("Windows");
 #elif PLATFORM(LINUX)
-	std::cout << "Linux platform" << std::endl;
+	fmt::println("Linux");
 #elif PLATFORM(DARWIN)
-	std::cout << "Darwin platform" << std::endl;
+	fmt::println("Darwin");
 #endif
 	return 0;
 }
